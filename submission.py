@@ -1,5 +1,7 @@
 # Gabriele Sanfilippo SM3201617
 
+# The solution proposed is based on A* search algorithm
+
 from .environment import PASSENGER_WAITING, PASSENGER_IN_TAXI
 from itertools import count
 import heapq
@@ -19,6 +21,7 @@ class Agent():
     return 0 # Fallback
 
   def heuristic(self, state):
+    # The heuristic functino is based on the Manhattan distance
     x, y, status, p_loc, d_loc = state
 
     px, py = self.env.stations[p_loc]["pos"]
@@ -31,7 +34,6 @@ class Agent():
 
     if status == PASSENGER_IN_TAXI:
         return abs(x - dx) + abs(y - dy) + 1
-
 
     return abs(x - dx) + abs(y - dy)
 
@@ -78,4 +80,5 @@ class Agent():
             (new_g + self.heuristic(nxt), next(tie), new_g, nxt),
           )
 
+    # In case no plan was found)
     self.plan = []
